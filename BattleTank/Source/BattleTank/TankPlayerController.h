@@ -21,7 +21,11 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick( float DeltaTime) override;
 
+private:
+	float Reach = 20000.f;
+
 	// Start the barrel moving so that a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
-	
+	// Cast a ray and return where you hit something or not
+	bool GetSightRayHitLocation( FVector& HitLoc ) const;
 };
