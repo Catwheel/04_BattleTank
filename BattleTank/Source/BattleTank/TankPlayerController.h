@@ -22,7 +22,10 @@ public:
 	virtual void Tick( float DeltaTime) override;
 
 private:
-	float Reach = 20000.f;
+	UPROPERTY(EditAnywhere)
+	float CrosshairXLocation = 0.5;
+	UPROPERTY(EditAnywhere)
+	float CrosshairYLocation = 0.33333;
 
 	// Start the barrel moving so that a shot would hit where the crosshair intersects the world
 	void AimTowardsCrosshair();
