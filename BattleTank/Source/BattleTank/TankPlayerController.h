@@ -31,4 +31,6 @@ private:
 	void AimTowardsCrosshair();
 	// Cast a ray and return where you hit something or not
 	bool GetSightRayHitLocation( FVector& HitLoc ) const;
+
+	bool GetLookDirection( FVector2D ScreenLocation, FVector& LookDirection ) const;
 };
