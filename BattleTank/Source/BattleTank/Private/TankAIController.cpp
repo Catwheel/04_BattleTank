@@ -28,6 +28,20 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("No found Player Tank!"));
 }
 
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	ATank* MyTank = GetControlledTank();
+	if (MyTank)
+	{
+		ATank* PlayerTank = GetPlayerTank();
+		if (PlayerTank)
+		{
+			MyTank->AimAt(PlayerTank->GetActorLocation());
+		}
+	}
+}
+
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
