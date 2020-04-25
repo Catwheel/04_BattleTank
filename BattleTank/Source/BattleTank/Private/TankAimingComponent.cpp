@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Engine/World.h"
 
 
@@ -10,14 +11,21 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
 
 void UTankAimingComponent::SetTankBarrelRef(UTankBarrel* BarrelToSet)
 {
+	if (!BarrelToSet) { return; }
 	TankBarrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTankTurretRef(UTankTurret* TurretToSet)
+{
+	if (!TurretToSet) { return; }
+	TankTurret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector Location, float LaunchSpeed)
@@ -48,7 +56,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 	// Rotate the barrel to face the aimdirection
-	TankBarrel->Elevate(DeltaRotator.Pitch); // TODO: remove magic number
+	TankBarrel->Elevate(DeltaRotator.Pitch);
+	TankTurret->Rotate(DeltaRotator.Yaw);
 	// if the amount of rotation needed is more than some variable "TurningSpeed", only rotate the barrel up to the turning speed amount
 
 }
