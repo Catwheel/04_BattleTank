@@ -13,5 +13,4 @@ void UTankBarrel::Elevate(float RelativeSpeed)
 	float RawNewElevation = RelativeRotation.Pitch + ElevationChange;
 	float Elevation = FMath::Clamp<float>(RawNewElevation, MinElevation, MaxElevation);
 	SetRelativeRotation(FRotator(Elevation, 0, 0));
-	UE_LOG(LogTemp, Warning, TEXT("Tank Barrel Elevate called at speed: %f"), RelativeSpeed);
 }
