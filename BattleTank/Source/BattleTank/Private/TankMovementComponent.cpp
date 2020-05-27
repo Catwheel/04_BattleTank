@@ -22,6 +22,8 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 	if (!LeftTrack || !RightTrack) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
+
+	UE_LOG(LogTemp, Warning, TEXT("%s is turning"), *GetOwner()->GetName());
 	// TODO prevent double speed due to dual control use
 }
 
@@ -30,9 +32,11 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	// No need to call super as we're replacing the functionality here
 	FVector AIFowardIntention = MoveVelocity.GetSafeNormal();
 	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+
 	float DotProduct = FVector::DotProduct(AIFowardIntention, TankForward);
 	IntendMoveForward(DotProduct);
 
-	UE_LOG(LogTemp, Warning, TEXT("%s is moving at: %f"), *GetOwner()->GetName(), DotProduct);
+	FVector CrossProduct = FVector::CrossProduct(AIFowardIntention, TankForward);
+	IntendTurnRight(CrossProduct.Z);
 }
 
