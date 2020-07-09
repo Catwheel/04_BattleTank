@@ -21,19 +21,22 @@ void ATank::BeginPlay()
 {
 	auto TankName = GetName();
 	UE_LOG(LogTemp, Warning, TEXT("%s CHICKENL Tank C++ BeginPlay"), *TankName);
+
+	Super::BeginPlay(); // Needed for BP BeginPlay
 }
 
 void ATank::AimAt(FVector Location)
 {
-	if (!TankAimingComponent) { return; }
+	if (!ensure(TankAimingComponent)) { return; }
 	TankAimingComponent->AimAt(Location,LaunchSpeed);
 }
 
 void ATank::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool isReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) >= ReloadTimeInSeconds;
-	if (Barrel && isReloaded) {
-		if (!ProjectileBlueprint) { return; }
+	if (isReloaded) {
+		if (!ensure(ProjectileBlueprint)) { return; }
 		// Spawn a projectile at the socket location on the barrel
 		FVector BarrelLocation = Barrel->GetSocketLocation(FName("Projectile"));
 		FRotator BarrelRotation = Barrel->GetSocketRotation(FName("Projectile"));
