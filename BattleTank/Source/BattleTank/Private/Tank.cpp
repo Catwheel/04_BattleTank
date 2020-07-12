@@ -3,7 +3,6 @@
 #include "Tank.h"
 #include "Projectile.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "TankBarrel.h"
 
 
@@ -14,13 +13,13 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s CHICKENL Tank C++ Consturct"), *TankName);
 }
 
 void ATank::BeginPlay()
 {
 	auto TankName = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s CHICKENL Tank C++ BeginPlay"), *TankName);
+
+	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 
 	Super::BeginPlay(); // Needed for BP BeginPlay
 }

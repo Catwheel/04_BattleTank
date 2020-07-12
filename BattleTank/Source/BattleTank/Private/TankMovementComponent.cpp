@@ -5,7 +5,6 @@
 
 void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	UE_LOG(LogTemp, Warning, TEXT("test3232"));
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 }
