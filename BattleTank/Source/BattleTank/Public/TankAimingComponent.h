@@ -36,7 +36,7 @@ public:
 
 
 public:	
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 	void MoveBarrelTowards(FVector AimDirection);
 
@@ -50,4 +50,7 @@ private:
 
 	UTankBarrel* TankBarrel = nullptr;
 	UTankTurret* TankTurret = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000;
 };

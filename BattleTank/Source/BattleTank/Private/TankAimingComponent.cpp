@@ -34,7 +34,7 @@ void UTankAimingComponent::SetTankTurretRef(UTankTurret* TurretToSet)
 	TankTurret = TurretToSet;
 }
 
-void UTankAimingComponent::AimAt(FVector Location, float LaunchSpeed)
+void UTankAimingComponent::AimAt(FVector Location)
 {
 	if (!ensure(TankBarrel)) { return; }
 	FVector OutLaunchVelocity(0);
