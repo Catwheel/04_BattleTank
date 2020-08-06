@@ -110,7 +110,10 @@ void UTankAimingComponent::MoveBarrelTowards(FVector inAimDirection)
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 	// Rotate the barrel to face the aimdirection
 	TankBarrel->Elevate(DeltaRotator.Pitch);
-	TankTurret->Rotate(DeltaRotator.Yaw);
+	if (FMath::Abs(DeltaRotator.Yaw) > 180)
+		TankTurret->Rotate(-DeltaRotator.Yaw);
+	else
+		TankTurret->Rotate(DeltaRotator.Yaw);
 	// if the amount of rotation needed is more than some variable "TurningSpeed", only rotate the barrel up to the turning speed amount
 
 }
